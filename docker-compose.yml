@@ -1,0 +1,9 @@
+services:
+  botnet:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/app
+    env_file: .env
+    entrypoint: ["tail", "-F", "."]

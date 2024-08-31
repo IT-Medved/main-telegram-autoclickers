@@ -1,6 +1,12 @@
 API_ID = os.getenv("API_ID", 111111111)
+API_HASH = os.getenv("API_HASH", "111111111")
+CHAT_ID = os.getenv("CHAT_ID", "111111")
+# api tokens for tg bots, if USE_TH_BOT=True (get in @BotFather)
+CHAT_TOKEN = os.getenv("CHAT_TOKEN", "111111")
+REF_CODE= os.getenv("REF_CODE", "111111")
 
-API_HASH = os.getenv("API_HASH", "adf124h2j342x4u232sn")
+
+
 
 ACC_DELAY = [60, 180] # delay between connections to accounts in seconds
 BIG_SLEEP = [14400,21600] # sleep between cycles in bots
@@ -24,9 +30,8 @@ CONECTED_BOTS = {
 }
 
 USE_TG_BOT = False
-CHAT_ID = os.getenv("CHAT_ID", "111111")
-# api tokens for tg bots, if USE_TH_BOT=True (get in @BotFather)
-CHAT_TOKEN = os.getenv("CHAT_TOKEN", "111111")
+
+
 BLUM_BOT_TOKEN = CHAT_TOKEN
 CRYPTORANK_BOT_TOKEN = CHAT_TOKEN
 YESCOIN_BOT_TOKEN = CHAT_TOKEN

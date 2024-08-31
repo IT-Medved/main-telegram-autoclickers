@@ -1,11 +1,11 @@
+import os
+
 API_ID = os.getenv("API_ID", 111111111)
 API_HASH = os.getenv("API_HASH", "111111111")
 CHAT_ID = os.getenv("CHAT_ID", "111111")
 # api tokens for tg bots, if USE_TH_BOT=True (get in @BotFather)
 CHAT_TOKEN = os.getenv("CHAT_TOKEN", "111111")
 REF_CODE= os.getenv("REF_CODE", "111111")
-
-
 
 
 ACC_DELAY = [60, 180] # delay between connections to accounts in seconds

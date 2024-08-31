@@ -6,7 +6,7 @@ CHAT_ID = os.getenv("CHAT_ID", "111111")
 # api tokens for tg bots, if USE_TH_BOT=True (get in @BotFather)
 CHAT_TOKEN = os.getenv("CHAT_TOKEN", "111111")
 REF_CODE= os.getenv("REF_CODE", "111111")
-
+USE_TG_BOT = os.getenv("USE_TG_BOT", "False").lower() in ('true', '1', 't')
 
 ACC_DELAY = [60, 180] # delay between connections to accounts in seconds
 BIG_SLEEP = [14400,21600] # sleep between cycles in bots
@@ -29,7 +29,7 @@ CONECTED_BOTS = {
     "./12_cats" : True,
 }
 
-USE_TG_BOT = False
+
 
 
 BLUM_BOT_TOKEN = CHAT_TOKEN

@@ -1,3 +1,6 @@
 .DS_Store
 repos.txt
 calc.py
+.env
+sessions/
+__pycache__/

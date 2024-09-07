@@ -8,8 +8,8 @@
 |:------:|-------------------------------------------------|
 |   ✅   | **Blum, CryptoRank, YesCoin, DotCoin**       |
 |   ✅   | **PocketFi, MuskEmpire, HamsterKombat**       |
-|   ✅   | **OKX Racer, Lost Dogs, Major**                       |
-|   ✅   | **Nomis, Cats**                      |
+|   ✅   | **OKX Racer, Lost Dogs, Major, Nomis**                       |
+|   ✅   | **Cats, RockyRabbit, MemeFi, CexIo**                      |
 |   ⌛   |                               |
 
 ## Requirements
@@ -39,6 +39,11 @@
      ```
      
    - Set random delay between ```while True``` iterations in bots, in seconds
+     ```python
+     BIG_SLEEP = [minDelay, maxDelay]
+     ```
+     
+   - Set `USE_TAPS = False` if you don't want your bots to use taps 
      ```python
      BIG_SLEEP = [minDelay, maxDelay]
      ```
@@ -110,7 +115,9 @@
 ## Usage
 
 Launch bots selected in ```global_data/global_config.py```
-1. Run `python3.11 main.py -a 3`
+- Run `python3.11 main.py`
+- Choose `3` -> Run bots
+- Or you can also just run `python3.11 main.py -a 3`
 
 ## Important Notes
 

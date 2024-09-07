@@ -10,6 +10,7 @@ USE_TG_BOT = os.getenv("USE_TG_BOT", "False").lower() in ('true', '1', 't')
 
 ACC_DELAY = [60, 180] # delay between connections to accounts in seconds
 BIG_SLEEP = [14400,21600] # sleep between cycles in bots
+USE_TAPS = True
 USE_PROXY = False
 PROXY_TYPE = "socks5" # http/socks5
 
@@ -27,6 +28,9 @@ CONECTED_BOTS = {
     "./10_major" : True,
     "./11_nomis" : True,
     "./12_cats" : True,
+    "./13_rockyrabbit" : True,
+    "./14_memefi" : True,
+    "./15_cexio" : True,
 }
 
 
@@ -44,6 +48,9 @@ LOSTDOGS_BOT_TOKEN = CHAT_TOKEN
 MAJOR_BOT_TOKEN = CHAT_TOKEN
 NOMIS_BOT_TOKEN = CHAT_TOKEN
 CATS_BOT_TOKEN = CHAT_TOKEN
+ROCKYRABBIT_BOT_TOKEN = CHAT_TOKEN
+MEMEFI_BOT_TOKEN = CHAT_TOKEN
+CEXIO_BOT_TOKEN = CHAT_TOKEN
 
 # don't change
 message = """
@@ -70,4 +77,7 @@ shamhiPaths = [
     './5_pocketfi',
     './6_muskempire',
     './9_lostdogs',
+    './13_rockyrabbit',
+    './14_memefi',
+    './15_cexio',
 ]

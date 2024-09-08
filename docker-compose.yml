@@ -6,4 +6,4 @@ services:
     volumes:
       - .:/app
     env_file: .env
-    entrypoint: ["python", "main.py", "-a", "3"]
+    entrypoint: ["python", "main.py", "-a", "4"]

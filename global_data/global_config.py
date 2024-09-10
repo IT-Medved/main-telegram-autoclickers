@@ -31,11 +31,10 @@ CONECTED_BOTS = {
     "./13_rockyrabbit" : True,
     "./14_memefi" : True,
     "./15_cexio" : True,
+    "./16_tonstation" : True,
 }
 
-
-
-
+# api tokens for tg bots, if USE_TH_BOT=True (get in @BotFather)
 BLUM_BOT_TOKEN = CHAT_TOKEN
 CRYPTORANK_BOT_TOKEN = CHAT_TOKEN
 YESCOIN_BOT_TOKEN = CHAT_TOKEN
@@ -51,6 +50,7 @@ CATS_BOT_TOKEN = CHAT_TOKEN
 ROCKYRABBIT_BOT_TOKEN = CHAT_TOKEN
 MEMEFI_BOT_TOKEN = CHAT_TOKEN
 CEXIO_BOT_TOKEN = CHAT_TOKEN
+TONSTATION_BOT_TOKEN = CHAT_TOKEN
 
 # don't change
 message = """
@@ -71,6 +71,7 @@ petyaPaths = [
     './10_major',
     './11_nomis',
     './12_cats',
+    './16_tonstation',
 ]
 shamhiPaths = [
     './4_dotcoin',

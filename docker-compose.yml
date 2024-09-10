@@ -1,0 +1,14 @@
+services:
+  botnet:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/app
+    env_file: .env
+    entrypoint: ["python", "main.py", "-a", "4"]
+    logging:
+      driver: telegram
+      options:
+        token: ${CHAT_TOKEN}
+        chat_id: ${CHAT_ID}

@@ -19,7 +19,7 @@ CHAT_ID = global_config.CHAT_ID # Your telegram id
 
 ACC_DELAY = global_config.ACC_DELAY
 PROXY_TYPE = global_config.PROXY_TYPE
-REF_CODE = 'linkCode_65404668'
+REF_CODE = global_config.REF_CODE
 
 BLACKLIST = {5, 9}
 

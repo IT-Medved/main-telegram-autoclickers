@@ -21,7 +21,7 @@ class Settings(BaseSettings):
     CHAT_ID: str = global_config.CHAT_ID
 
     SKILLS_MODE: str = 'profitness'
-    REF_CODE: str = 'hero6046075760'
+    REF_CODE: str = global_config.REF_CODE
 
     TAPS_ENABLED: bool = global_config.USE_TAPS
     TAPS_PER_SECOND: list[int] = [10, 30] # tested with 4 fingers

@@ -3,8 +3,9 @@ from time import time
 from datetime import datetime
 from random import randint
 from urllib.parse import unquote
+from pyrogram.raw import functions
 
-import aiohttp
+import aiohttp, ssl, certifi
 from aiohttp_proxy import ProxyConnector
 from better_proxy import Proxy
 from pyrogram import Client
@@ -47,6 +48,17 @@ class Claimer:
                 except (Unauthorized, UserDeactivated, AuthKeyUnregistered):
                     raise InvalidSession(self.session_name)
 
+            messages = await self.tg_client.get_chat_history_count(chat_id='@dotcoin_bot')
+            if not messages:
+                peer = await self.tg_client.resolve_peer('dotcoin_bot')
+                await self.tg_client.invoke(
+                    functions.messages.StartBot(
+                        bot=peer,
+                        peer=peer,
+                        start_param=settings.REF_CODE,
+                        random_id=randint(1, 9999999),
+                    )
+                )
             web_view = await self.tg_client.invoke(RequestWebView(
                 peer=await self.tg_client.resolve_peer('dotcoin_bot'),
                 bot=await self.tg_client.resolve_peer('dotcoin_bot'),
@@ -178,7 +190,8 @@ class Claimer:
         await asyncio.sleep(randint(*settings.ACC_DELAY))
         access_token_created_time = 0
 
-        proxy_conn = ProxyConnector.from_url(proxy) if proxy else aiohttp.TCPConnector(verify_ssl=False)
+        sslcontext = ssl.create_default_context(cafile=certifi.where())
+        proxy_conn = ProxyConnector.from_url(proxy, ssl=sslcontext) if proxy else aiohttp.TCPConnector(ssl=sslcontext)
 
         async with aiohttp.ClientSession(headers=headers, connector=proxy_conn) as http_client:
             if proxy:

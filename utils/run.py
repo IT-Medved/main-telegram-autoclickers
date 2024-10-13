@@ -1,5 +1,6 @@
 import asyncio
-import os, sys
+import os
+from random import randint
 from pathlib import Path
 from shutil import copytree, rmtree
 
@@ -44,22 +45,25 @@ async def update_data():
         logger.error(f"[SOFT] | update_data | Error in update_data: {e}")
         return False
 
-async def run_soft():
+async def run_soft(cur_idx):
     session_path = Path('sessions')
     session_files = session_path.glob('*.session')
     session_names = [file.stem for file in session_files]
     if (len(session_names) == 0):
         print("Create sessions!")
         return
-    
-    workDelay = int(input(f"Enter a delay between the work of every pair of bots (in seconds): "))
 
     ok = await update_data()
     if (not ok): return
     folders = sorted([f'{path}' for path in global_settings.FIRST_PATHS+global_settings.SECOND_PATHS if global_settings.BOTS_DATA[path]['is_connected']])
-    cur_idx = 0
+    cur_soft_circle = 0
     while True:
         try:
+            if (cur_idx == 0): cur_soft_circle += 1
+            if (cur_soft_circle == global_settings.SOFT_CIRCLES_NUM+1):
+                logger.info(f"[SOFT] | run_soft | {global_settings.SOFT_CIRCLES_NUM} soft circles completed")
+                return
+
             folder = folders[cur_idx].upper()
             logger.info(f"[SOFT] | run_soft | Current working bot: {folder}")
             
@@ -71,27 +75,39 @@ async def run_soft():
                 stderr=asyncio.subprocess.PIPE
             )
             
+            def colored_message(message):
+                if "ERROR" in message: return f"<red>{message}</red>"
+                elif "INFO" in message: return f"<white>{message}</white>"
+                else: return f"<green>{message}</green>"
+
             async def stream_output(process, folder):
                 while True:
                     line = await process.stdout.readline()
                     if line:
-                        logger.info(f'[{folder}] | {line.decode(sys.stdout.encoding).rstrip()}')
+                        s = line.decode('cp1251' if os.name == 'nt' else 'utf-8').rstrip().replace("<", "\\<").replace(">", "\\>")
+                        logger.info(f'<blue>[{folder}] | </blue> {colored_message(s)}')
                     else: break
 
             async def stream_errors(process, folder):
                 while True:
                     line = await process.stderr.readline()
                     if line:
-                        logger.error(f'[{folder}] | {line.decode(sys.stdout.encoding).rstrip()}')
+                        s = line.decode('cp1251' if os.name == 'nt' else 'utf-8').rstrip().replace("<", "\\<").replace(">", "\\>")
+                        logger.error(f'<blue>[{folder}] | </blue> {s}')
                     else: break
 
             asyncio.create_task(stream_output(process, folder))
             asyncio.create_task(stream_errors(process, folder))
             await process.wait()
 
-            logger.info(f"[SOFT] | run_soft | Wait {workDelay} seconds to next bot...")
-            await asyncio.sleep(workDelay)
             cur_idx = (cur_idx + 1) % len(folders)
+            if (cur_idx != 0):
+                workDelay = randint(*global_settings.SOFT_BOTS_DELAY)
+                logger.info(f"[SOFT] | run_soft | Wait {workDelay} seconds to next bot...")
+            else:
+                workDelay = randint(*global_settings.SOFT_CIRCLES_DELAY)
+                logger.info(f"[SOFT] | run_soft | Circle completed! Wait {workDelay} seconds to next circle...")
+            await asyncio.sleep(workDelay)
 
             os.chdir('../../')
         except Exception as e:

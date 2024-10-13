@@ -1,19 +1,22 @@
 
 # Automatic autoclicker for popular telegram mini-apps
-[<img src="https://img.shields.io/badge/Telegram-%40Me-orange">](https://t.me/faxweb_dev)
+[<img src="https://img.shields.io/badge/Telegram-%40My_Channel-orange">](https://t.me/faxweb_dev)
+[<img src="https://img.shields.io/badge/Telegram-%40Me-orange">](https://t.me/faxweb_dev_admin)
 [<img src="https://img.shields.io/badge/python-3.11-blue">](https://www.python.org/downloads/)
-![](https://i.ibb.co/60d28ZR/2024-09-16-21-29-53.png)
+
+![](https://i.ibb.co/HBW9tSY/2024-09-22-19-49-28.png)
 
 ## Bot Status
-### This is free version of software
-Free version of this software (current repository) has only 4 bots: Blum, Major, Yescoin and Dotcoin, but the paid version of the software has 15 bots. If you are interested in purchasing a paid bot, write to me in telegram: https://t.me/faxweb_dev. Paid version software bot status:
+#### Subscribe to the telegram channel to follow updates and/or purchase paid software version: [@faxweb_dev](https://t.me/faxweb_dev)
+Free version of this software (current repository) has 5 bots: Blum, Major, Yescoin, Dotcoin and catsgang, but the paid version of the software has 19 bots. If you are interested in purchasing a paid bot, read the pinned message in my telegram channel: [@faxweb_dev](https://t.me/faxweb_dev). Paid version software bot status:
 | Status | Bots                                            |
 |:------:|-------------------------------------------------|
-|   ✅   | **Blum, YesCoin, LeapApp, DotCoin**       |
-|   ✅   | **PocketFi, MuskEmpire, HamsterKombat**       |
-|   ✅   | **OKX Racer, Major, Nomis, Cats**                       |
-|   ✅   | **RockyRabbit, MemeFi, CexIo, TonStation**                      |
-|   ⌛   |                               |
+|   ✅   | **Blum, Cats, CexIo, Clayton**       |
+|   ✅   | **DotCoin, LeapApp, Major, MemeFi**       |
+|   ✅   | **MMProBump, Nomis, OKX Racer, PocketFi**                       |
+|   ✅   | **TonStation, VanaDataHero, YesCoin**                      |
+|   ✅   | **MoonBix, Not Pixel, FriendsFactory, Agent301**                              |
+|   ⌛   | **Tomarket, CoinSweeper, DuckChain**                              |
 
 ## Requirements
 - Python 3.11 (you can install it [here](https://www.python.org/downloads/release/python-3110/))
@@ -30,10 +33,12 @@ Free version of this software (current repository) has only 4 bots: Blum, Major,
    ~/main-telegram-autoclickers >>> cp .env-example .env
    
    # Windows
+   ~ >>> chcp 1251
    ~/main-telegram-autoclickers >>> pip install -r requirements.txt
    ~/main-telegram-autoclickers >>> copy .env-example .env
    ```
 2. Configure the application in `.env`:
+   - open .env file (`nano .env` for linux, and `notepad .env` for windows)
    - Add your `API_ID` and `API_HASH`:
      ```python
      API_ID = your_api_id
@@ -45,10 +50,18 @@ Free version of this software (current repository) has only 4 bots: Blum, Major,
      USE_PROXY = True  # or False
      PROXY_TYPE = "socks5" # or http
      ```
+     
+   - Set `SOFT_BOTS_DELAY` (delay between transition from one bot to another), `SOFT_CIRCLES_NUM` (1 soft circle = execute all activities in all bots) and `SOFT_CIRCLES_DELAY` (delay between soft circles)
+     ```python
+     SOFT_BOTS_DELAY = [600, 900]
+     SOFT_CIRCLES_NUM = 10
+     SOFT_CIRCLES_DELAY = [21000, 25000]
+     ```
 
    - Set ACC_DELAY and USE_TAPS variables
      ```python
      ACC_DELAY = [minDelay, maxDelay] # random delay between connections to accounts in seconds
+     MINI_SLEEP = [minDelay, maxDelay] # random delay between requests in seconds
      USE_TAPS = True or False # USE_TAPS = False if you don't want your bots to use taps
      ```
 
@@ -58,7 +71,7 @@ Free version of this software (current repository) has only 4 bots: Blum, Major,
      CHAT_ID = '123456789'
      BOT_TOKEN = '1234567:asdfghjqwerty'
      ```
-   - For each bot in BOTS_DATA, you can choose for you, use this bot or not (is_connected), and specify individual settings for this particular bot. Default BOTS_DATA:
+   - For each bot in BOTS_DATA, you can choose for you, use this bot or not (is_connected), and specify individual settings for this particular bot. Example BOTS_DATA:
      ```python
      BOTS_DATA= '{
         "blum" : {
@@ -68,16 +81,6 @@ Free version of this software (current repository) has only 4 bots: Blum, Major,
             "sleep_game_time": [60, 180],
             "do_tasks": true,
             "big_sleep_add": [1800, 3600]
-        },
-        "major" : {
-            "is_connected": true,
-            "ref_code": "6046075760",
-            "play_hold_coin": true,
-            "play_roulette": true,
-            "play_swipe_coin": true,
-            "join_squad": true,
-            "task_sleep": [30, 120],
-            "game_sleep": [60, 180]
         }
      }'
      ```
@@ -90,7 +93,7 @@ Free version of this software (current repository) has only 4 bots: Blum, Major,
    192.168.1.2:2934:username:password anothername
    ```
      
-5. Creating sessions:
+4. Creating sessions:
    - Run `python3 main.py`
    - Choose `1` -> Create new session
    - Enter the session name, phone number and etc.
@@ -99,7 +102,6 @@ Free version of this software (current repository) has only 4 bots: Blum, Major,
 1. Launching bots that have `is_connected = True` in the `BOTS_DATA` variable of the `.env` file:
    - Run `python3 main.py`
    - Choose `2` -> Run bots
-   - Enter a delay between the work of every pair of bots (in seconds)
    
 2. Installing repository updates (if you see that I have committed a new change to a bot)
    - Run `git pull` in root of repository

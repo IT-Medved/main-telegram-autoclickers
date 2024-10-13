@@ -9,6 +9,10 @@ class Settings(BaseSettings):
     USE_PROXY: bool = False
     PROXY_TYPE: str = "socks5"
 
+    SOFT_BOTS_DELAY: list[int] = [600, 900]
+    SOFT_CIRCLES_NUM: int = 10
+    SOFT_CIRCLES_DELAY: list[int] = [21000, 25000]
+
     ACC_DELAY: list[int] = [0, 200]
     MINI_SLEEP: list[int] = [20, 80]
     USE_TAPS: bool = False
@@ -21,8 +25,9 @@ class Settings(BaseSettings):
         "blum" : {
             "is_connected": True,
             "ref_code": "ref_qIFL0xYd8i",
-            "errors_before_stop": 8,
+            "errors_before_stop": 2,
             "spend_diamonds": True,
+            "max_games_count": [10, 20],
             "points": [120, 190],
             "sleep_game_time": [60, 180],
             "do_tasks": True
@@ -30,7 +35,7 @@ class Settings(BaseSettings):
         "major" : {
             "is_connected": True,
             "ref_code": "6046075760",
-            "errors_before_stop": 8,
+            "errors_before_stop": 2,
             "play_hold_coin": True,
             "play_roulette": True,
             "play_swipe_coin": True,
@@ -41,7 +46,7 @@ class Settings(BaseSettings):
         "yescoin" : {
             "is_connected": True,
             "ref_code": "KWWehI",
-            "errors_before_stop": 8,
+            "errors_before_stop": 2,
             "do_tasks": True,
             "upgrade": True,
             "max_upgrade_lvl": 7,
@@ -54,13 +59,20 @@ class Settings(BaseSettings):
         "dotcoin" : {
             "is_connected": True,
             "ref_code": "r_6046075760",
-            "errors_before_stop": 8,
+            "errors_before_stop": 2,
             "auto_upgrade_tap": True,
             "max_tap_level": 5,
             "auto_upgrade_attempts": True,
             "max_attempts_level": 5,
             "random_taps_count": [50, 200],
             "taps_sleep": [10, 25]
+        },
+        "cats" : {
+            "is_connected": True,
+            "ref_code": "18awB6nNqqe8928y1u4vp",
+            "errors_before_stop": 2,
+            "do_photos": True,
+            "task_sleep": [40, 120]
         }
     }
 
@@ -73,7 +85,7 @@ class Settings(BaseSettings):
     ╚═╝     ╚═╝  ╚═╝╚═╝  ╚═╝ ╚══╝╚══╝ ╚══════╝╚═════╝
     GitHub Repository: https://github.com/FaxWeb7/main-telegram-autoclickers
     """
-    FIRST_PATHS: list[str] = ['blum', 'major', 'yescoin']
+    FIRST_PATHS: list[str] = ['blum', 'major', 'yescoin', 'cats']
     SECOND_PATHS: list[str] = ['dotcoin']
 
 global_settings = Settings()

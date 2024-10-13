@@ -2,12 +2,14 @@ import random
 from utils.core import logger
 from pyrogram import Client
 from pyrogram.raw.functions.messages import RequestAppWebView
+from pyrogram.raw import functions
 from pyrogram.raw.types import InputBotAppShortName
 import aiohttp_proxy
 import asyncio
 from urllib.parse import unquote
 from data import config
-import aiohttp
+import aiohttp, ssl, certifi
+from aiohttp_proxy import ProxyConnector
 from fake_useragent import UserAgent
 
 
@@ -15,8 +17,9 @@ class YesCoin:
     def __init__(self, thread: int, session_name: str, phone_number: str, proxy: [str, None]):
         self.account = session_name + '.session'
         self.thread = thread
-        self.proxy = f"{config.PROXY['TYPE']['REQUESTS']}://{proxy.split(':')[2]}:{proxy.split(':')[3]}@{proxy.split(':')[0]}:{proxy.split(':')[1]}"
-        connector = aiohttp_proxy.ProxyConnector.from_url(self.proxy) if proxy else aiohttp.TCPConnector(verify_ssl=False)
+        self.proxy = f"{config.PROXY['TYPE']['REQUESTS']}://{proxy.split(':')[2]}:{proxy.split(':')[3]}@{proxy.split(':')[0]}:{proxy.split(':')[1]}" if proxy else None
+        sslcontext = ssl.create_default_context(cafile=certifi.where())
+        proxy_conn = ProxyConnector.from_url(self.proxy, ssl=sslcontext) if self.proxy else aiohttp.TCPConnector(ssl=sslcontext)
 
         if proxy:
             proxy = {
@@ -37,7 +40,7 @@ class YesCoin:
         )
 
         headers = {'User-Agent': UserAgent(os='android').random}
-        self.session = aiohttp.ClientSession(headers=headers, trust_env=True, connector=connector)
+        self.session = aiohttp.ClientSession(headers=headers, trust_env=True, connector=proxy_conn)
 
     async def stats(self):
         await asyncio.sleep(random.uniform(*config.DELAYS['ACCOUNT']))
@@ -165,7 +168,17 @@ class YesCoin:
     async def get_tg_web_data(self):
         try:
             await self.client.connect()
-
+            messages = await self.client.get_chat_history_count(chat_id='@theYescoin_bot')
+            if not messages:
+                peer = await self.client.resolve_peer('theYescoin_bot')
+                await self.client.invoke(
+                    functions.messages.StartBot(
+                        bot=peer,
+                        peer=peer,
+                        start_param=config.REF_CODE,
+                        random_id=random.randint(1, 9999999),
+                    )
+                )
             web_view = await self.client.invoke(RequestAppWebView(
                 peer=await self.client.resolve_peer('theYescoin_bot'),
                 app=InputBotAppShortName(bot_id=await self.client.resolve_peer('theYescoin_bot'), short_name="Yescoin"),

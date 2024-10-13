@@ -27,19 +27,26 @@ WORKDIR = "sessions/"
 # использование прокси
 USE_PROXY = global_settings.USE_PROXY # True/False
 
-# скок поинтов с игры
-POINTS = global_settings.BOTS_DATA['blum']['points'] #[min, max]
-MAX_GAMES_COUNT = global_settings.BOTS_DATA['blum']['max_games_count'] #[min, max]
+REF_CODE = global_settings.BOTS_DATA['cats']['ref_code']
 
-# тратить алмазы
-SPEND_DIAMONDS = global_settings.BOTS_DATA['blum']['spend_diamonds'] # True/False
+# задержка в секундах между выполнеными тасками
+TASK_SLEEP = global_settings.BOTS_DATA['cats']['task_sleep']
 
-# сон между играми
-SLEEP_GAME_TIME = global_settings.BOTS_DATA['blum']['sleep_game_time'] #[min,max]
+DO_PHOTOS = global_settings.BOTS_DATA['cats']['do_photos']
+
+ERRORS_BEFORE_STOP = global_settings.BOTS_DATA['cats']['errors_before_stop']
 
 # мини задержки
-MINI_SLEEP = global_settings.MINI_SLEEP #[min,max]
-DO_TASKS = global_settings.BOTS_DATA['blum']['do_tasks']
+MINI_SLEEP = global_settings.MINI_SLEEP
 
-REF_CODE = global_settings.BOTS_DATA['blum']['ref_code']
-ERRORS_BEFORE_STOP = global_settings.BOTS_DATA['blum']['errors_before_stop']
+# айди тасков которые будут пропускаться
+BLACKLIST = [2, 3, 4, 5, 99, 104, 105, 130]
+
+hello ='''              _                               __  _        
+ _ __    ___ | |_  _   _   __ _  ___   ___   / _|| |_  ___ 
+| '_ \  / _ \| __|| | | | / _` |/ __| / _ \ | |_ | __|/ __|
+| |_) ||  __/| |_ | |_| || (_| |\__ \| (_) ||  _|| |_ \__ \\
+| .__/  \___| \__| \__, | \__,_||___/ \___/ |_|   \__||___/
+|_|                |___/        
+
+'''
